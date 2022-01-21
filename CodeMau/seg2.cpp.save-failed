@@ -1,0 +1,118 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+typedef pair<int,int> ii;
+#define FORW(i,a,b) for(int i=a;i<=b;i++)
+#define FORB(i,a,b) for (int i=a;i>=b;i--)
+#define forw(i,a,b) for (ll i=a;i<=b;i++)
+#define forb(i,a,b) for (ll i=a;i>=b;i--)
+#define fast {ios::sync_with_stdio(false); cin.tie(0); }
+#define fi first
+#define se second
+#define pu push
+#define puf push_front
+#define pb push_back
+#define pof pop_front
+#define pob pop_back
+#define fr front
+#define all(a) a.begin(),a.end()
+#define endl "\n"
+#define db(val) "["#val" = "<<(val)<<"] "
+int dX[] ={0,-1,0,1};
+int dY[]= {-1,0,1,0};
+const ll oo=1e18;
+const ll MOD=1e9+7;
+const ll mod=1e9+9;
+const int N = 1e5+1;
+ll arr[N];
+ll tree[4*N];
+ll lazy[4*N];
+struct Node
+{
+    ll lazy;
+    ll val;
+};
+Node st[4*N];
+ll a[N],n,m;
+void build_tree(int id, int l, int r) {
+    if(l > r) return; // Out of range
+    if(l == r) { // Leaf node
+        st[id].val = a[l]; // Init value
+        return;
+    }
+    build_tree(id*2, l, (l+r)/2); // Init left child
+    build_tree(id*2+1, 1+(l+r)/2, r); // Init right child
+    st[id].val = max(st[id*2].val, st[id*2+1].val); // Init root value
+}
+void update_tree(int id, int l, int r, int u, int v, int value) {
+    if(st[id].lazy != 0) { // This node needs to be updated
+        st[id].val += st[id].lazy; // Update it
+        if(l != r) {
+            st[id*2].lazy += st[id].lazy; // Mark child as lazy
+            st[id*2+1].lazy+= st[id].lazy; // Mark child as lazy
+        }
+        st[id].lazy = 0; // Reset it
+    }
+    if(l > r || l > v || r < u) // Current segment is not within range [i, j]
+        return;
+    if(l >= u && r <= v) { // Segment is fully within range
+        st[id].val += value;
+
+        if(l != r) { // Not leaf node
+            st[id*2].lazy+= value;
+            st[id*2+1].lazy += value;
+        }
+        return;
+    }
+    update_tree(id*2, l, (l+r)/2, u, v, value); // Updating left child
+    update_tree(1+id*2, 1+(l+r)/2, r, u, v, value); // Updating right child
+    st[id].val = max(st[id*2].val, st[id*2+1].val); // Updating root with max value
+}
+
+ll query_tree(int id, int l, int r, int u, int v) {
+    if(l > r || l > v || r < u) return -oo;
+
+    if(st[id].lazy != 0) {
+        st[id].val+= st[id].lazy;
+
+        if(l != r) {
+            st[id*2].lazy += st[id].lazy;
+            st[id*2+1].lazy += st[id].lazy;
+        }
+
+        st[id].lazy = 0;
+    }
+    if(l >= u && r <= v)
+        return st[id].val;
+    ll q1 = query_tree(id*2, l, (l+r)/2, u, v);
+    ll q2 = query_tree(1+id*2, 1+(l+r)/2, r, u, v);
+    ll res = max(q1, q2);
+    return res;
+}
+
+int main() {
+    cin>>n;
+    FORW(i,0,n-1)
+     cin>>a[i];
+    build_tree(1,0,n-1);
+    cin>>m;
+    FORW(i,1,m)
+     {
+        int op ;
+        cin>>op;
+        if (op==1)
+        {
+            int u,v,val;
+            cin>>u>>v>>val;
+            update_tree(1,0,n-1,u-1,v-1,val);
+
+        }
+        else
+        {
+            int u,v;
+            cin>>u>>v;
+            cout<<query_tree(1,0,n-1,u-1,v-1)<<endl;
+
+        }
+     }
+}
