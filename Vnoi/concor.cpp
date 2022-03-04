@@ -40,7 +40,6 @@ struct point{
 double minDistance(ii A, ii B, ii E)
 {
 
-    // vector AB
     ii AB = {B.fi-A.fi,B.se-A.se}, AE= {E.fi-A.fi,E.se-A.se}, BE={E.fi-B.fi,E.se-B.se};
     double AB_BE, AB_AE;
     AB_BE = (AB.F * BE.F + AB.S * BE.S);
@@ -48,26 +47,25 @@ double minDistance(ii A, ii B, ii E)
 
     double reqAns = 0;
 
-    // Case 1
+
     if (AB_BE > 0) {
 
-        // Finding the magnitude
+
         double y = E.S - B.S;
         double x = E.F - B.F;
         reqAns = sqrt(x * x + y * y);
     }
 
-    // Case 2
+
     else if (AB_AE < 0) {
         double y = E.S - A.S;
         double x = E.F - A.F;
         reqAns = sqrt(x * x + y * y);
     }
 
-    // Case 3
     else {
 
-        // Finding the perpendicular distance
+ 
         double x1 = AB.F;
         double y1 = AB.S;
         double x2 = AE.F;
