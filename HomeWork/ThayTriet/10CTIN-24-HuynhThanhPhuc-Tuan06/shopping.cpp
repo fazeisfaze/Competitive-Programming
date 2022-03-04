@@ -49,36 +49,36 @@ int main()
          p2[i]=p2[i-1]+a[i];
     }
 
-   map<ll,ll> save1,save2 ;
+//   map<ll,ll> save1,save2 ;
 //    for( int i = 0 ;i<=1;i++){
 //        for (int j = 1;j<=n;j++)
 //            cout<<p[i][j]<<" ";
 //        cout<<endl;
 //    }
-//    FORW(i,1,n){
-//        auto pos = lower_bound(p1+1,p1+i+1,p1[i]-d)-(p1+1);
-//        res+=i-pos;
-//        if (pos%2) res--;
-////        cout<<pos<<endl;
-//
-//    }
-//    FORW(i,2,n){
-//        auto pos = lower_bound(p2+2,p2+i+2,p2[i]-d)-(p2+2);
-//         res+=i-pos;
-//        if (pos%2) res--;
+    FORW(i,1,n){
+        int pos = lower_bound(p1+1,p1+i+1,p1[i]-d)-(p1+1);
+        res+=i-pos;
+        if (pos%2) res--;
 //        cout<<pos<<endl;
+
     }
     FORW(i,2,n){
-            save2[p1[i]]=i;
-            save1[p2[i]]=i;
-            res+=i-save1[p2[i]-d];
-            res+=i-save2[p1[i]-d];
-
-
-
+        int pos = lower_bound(p2+2,p2+i+2,p2[i]-d)-(p2+2);
+         res+=i-pos;
+        if (pos%2) res--;
+//        cout<<pos<<endl;
     }
-    for (auto v: save1)
-         cout<<v.fi<<": "<<v.se<<endl;
+//    FORW(i,2,n){
+//            save2[p1[i]]=i;
+//            save1[p2[i]]=i;
+//            res+=i-save1[p2[i]-d];
+//            res+=i-save2[p1[i]-d];
+//
+//
+//
+//    }
+//    for (auto v: save1)
+//         cout<<v.fi<<": "<<v.se<<endl;
 
     cout<<(1LL*(ll)round(res/2.0));
 
