@@ -1,1 +1,1 @@
-# 👋 Konnichiwa mina-san 👋
+# 👋 Konnichiwa minna-san 👋
