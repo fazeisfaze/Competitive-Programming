@@ -23,7 +23,7 @@ const ll oo=1e18;
 const ll MOD=1e9+7;
 const ll mod=1e9+9;
 struct Segtree{
-    vector<ll> value;
+    vector<l> value;
     ll size;
     void init (int n)
      {
@@ -57,6 +57,7 @@ struct Segtree{
 
     void Set(int u, int v, int x, int lx, int rx)
     {
+        if (lx)
         if (rx-lx==1)
         {
            value[x]=v;
@@ -66,7 +67,7 @@ struct Segtree{
         if (mid> u  )
             Set(u,v,2*x+1,lx,mid);
         else Set(u,v,2*x+2,mid,rx);
-        value[x]=max(value[2*x+1],value[2*x+2]);
+
 
     }
     void Set(int u, int v)

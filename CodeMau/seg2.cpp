@@ -30,7 +30,6 @@ struct segtree{
 	void push(int u){
 		int x = lazy[u];
 		lazy[u] = 0;
-
 		tree[u*2] += x;
 		lazy[u*2] += x;
 		tree[u*2+1] += x;

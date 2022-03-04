@@ -38,8 +38,8 @@ void dfs(int u,int p)
 int main()
 {
     fast;
-    //freopen(".INP","r",stdin);
-    //freopen(".OUT","w",stdout);
+    freopen("CHIHUY.INP","r",stdin);
+    freopen("CHIHUY.OUT","w",stdout);
     cin>>n>>q;
     FORW(i,1,n-1)
     {
