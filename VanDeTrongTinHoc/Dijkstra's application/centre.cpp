@@ -1,6 +1,6 @@
-/* tóm tắt đề:
+/* tóm tắt :
    Cho n thành phố, m con đường 2 chiều
-   1 thành phố được chọn làm trung tâm nếu không sử dụng thành phố này đường đi ngắn nhất từ 1 đến N vẫn không thay đổi
+   1 thành phố được chọn làm trung tâm nếu không sử dụng thành phố này thì đường đi ngắn nhất từ 1 đến N vẫn không thay đổi
 */
 #include <bits/stdc++.h>
 using namespace std;
